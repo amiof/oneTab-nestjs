@@ -4,5 +4,4 @@ const hashPassword = async (pass: string) => {
   return await bcrypt.hashSync(pass, salt)
 }
 
-
 export { hashPassword }

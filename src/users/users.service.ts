@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import userModel from 'src/entities/user.entities';
 import { hashPassword } from 'src/utils/func';
+import * as bcrypt from "bcryptjs"
 
 @Injectable()
 export class UsersService {
@@ -41,6 +42,7 @@ export class UsersService {
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
+
 
   remove(id: number) {
     return `This action removes a #${id} user`;

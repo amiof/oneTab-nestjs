@@ -10,7 +10,7 @@ export default class userModel {
   last_name: string;
   @Column({ unique: false, nullable: false })
   first_name: string;
-  @Column({ select:false, nullable: false })
+  @Column({  nullable: false })
   password: string;
   @Column({ unique: false, nullable: true })
   age: number;
