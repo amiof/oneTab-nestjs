@@ -9,7 +9,7 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto);
+    return await this.usersService.createUser(createUserDto);
   }
 
   @Get()
@@ -17,10 +17,16 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
+  @Post("findByEmail")
+  async findUserByEmail(@Body() email: string) {
+    return await this.usersService.findUserByEmail(email);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

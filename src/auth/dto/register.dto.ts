@@ -11,6 +11,7 @@ export class RegisterDto {
   readonly last_name: string;
   @IsNotEmpty()
   @IsEmail()
+  @IsString()
   readonly email: string;
   @IsNotEmpty()
   @IsString()
