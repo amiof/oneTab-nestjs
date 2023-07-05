@@ -14,7 +14,9 @@ export class AuthService {
       const passCampaire = await bcrypt.compareSync(loginDto.password, user.password)
       // console.log(passCampaire)
       if (!passCampaire) return "your user or password is not correct 1"
-      return "you are login"
+      const jwtToken = await this.userService.createJwt(user.email, "3d")
+      const userWhitJwt = this.userService.saveJwtToken(user.email, jwtToken)
+      return userWhitJwt
     }
     return "your user name or password is not correct 2"
   }

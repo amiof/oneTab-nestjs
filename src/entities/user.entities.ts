@@ -16,4 +16,6 @@ export default class userModel {
   age: number;
   @Column({ unique: true, nullable: false })
   userName: string;
+  @Column({nullable:true})
+  JwtToken:string
 }
