@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import userModel from 'src/entities/user.entities';
 import { hashPassword } from 'src/utils/func';
-import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
 @Injectable()

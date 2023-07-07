@@ -1,14 +1,19 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { databasePorvider } from './database.provider';
 import { PassportModule } from "@nestjs/passport"
 import { AuthModule } from './auth/auth.module';
+import { LoggerMiddleware } from './logger/logger.middleware';
 
 @Module({
   imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule implements NestModule{
+configure(consumer: MiddlewareConsumer) {
+  consumer.apply(LoggerMiddleware).forRoutes("*")
+}
+}
