@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import urlModel from "./urls.entities"
 @Entity("users")
 export default class userModel {
   @PrimaryGeneratedColumn("uuid")
@@ -10,12 +10,14 @@ export default class userModel {
   last_name: string;
   @Column({ unique: false, nullable: false })
   first_name: string;
-  @Column({  nullable: false })
+  @Column({ nullable: false })
   password: string;
   @Column({ unique: false, nullable: true })
   age: number;
   @Column({ unique: true, nullable: false })
   userName: string;
-  @Column({nullable:true})
-  JwtToken:string
+  @Column({ nullable: true })
+  JwtToken: string
+  @OneToMany(() => urlModel, (url) => url.user)
+  url: urlModel[]
 }
