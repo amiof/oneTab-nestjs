@@ -6,9 +6,10 @@ import { databasePorvider } from './database.provider';
 import { PassportModule } from "@nestjs/passport"
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
+import { UrlsModule } from './urls/urls.module';
 
 @Module({
-  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule],
+  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule, UrlsModule],
   controllers: [AppController],
   providers: [AppService],
 })
