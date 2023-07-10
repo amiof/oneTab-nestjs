@@ -3,12 +3,11 @@ import { UrlsService } from './urls.service';
 import { UrlsController } from './urls.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import urlModel from 'src/entities/urls.entities';
-import { UsersService } from 'src/users/users.service';
-import userModel from 'src/entities/user.entities';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([urlModel,userModel])],
-  providers: [UrlsService,UsersService],
+  imports:[TypeOrmModule.forFeature([urlModel]),UsersModule],
+  providers: [UrlsService],
   controllers: [UrlsController]
 })
 export class UrlsModule {}
