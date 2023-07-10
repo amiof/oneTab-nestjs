@@ -19,5 +19,5 @@ export default class userModel {
   @Column({ nullable: true })
   JwtToken: string
   @OneToMany(() => urlModel, (url) => url.user)
-  url: urlModel[]
+  urls: urlModel[]
 }

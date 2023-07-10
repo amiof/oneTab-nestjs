@@ -22,17 +22,19 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.userRepository.find({});
+    return await this.userRepository.find({
+      relations: ["urls"]
+    });
   }
   async findUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email } })
+    const user = await this.userRepository.findOne({ where: { email }, relations: ["urls"] })
     // console.log(user)
     if (user) return user
     return false
   }
 
   async findUserByUserName(userName: string) {
-    const user = await this.userRepository.findOne({ where: { userName } })
+    const user = await this.userRepository.findOne({ where: { userName },relations:["urls"] })
     if (user) return user
     return false
   }

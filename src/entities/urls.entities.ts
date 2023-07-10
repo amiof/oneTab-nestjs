@@ -15,6 +15,6 @@ export default class urlModel {
   // setCreateAt() {
   //   this.CreateAt = new Date()
   // }
-  @ManyToOne(() => userModel, (user) => user.url)
+  @ManyToOne(() => userModel, (user) => user.urls)
   user: userModel
 }
