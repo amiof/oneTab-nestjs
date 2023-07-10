@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { UrlsService } from './urls.service';
 import { UpdateUrlDto } from './dto/updateUrl.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUrlDto } from './dto/createUrl.dto';
 
+
+@ApiBearerAuth("token")
 @ApiTags("urls")
 @Controller('urls')
 export class UrlsController {

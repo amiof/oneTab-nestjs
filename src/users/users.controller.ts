@@ -2,12 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, UseGu
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { jwtAuthGuard } from 'src/auth/auth.guard';
-import { UUID } from 'crypto';
+
 type TEmail={
 email:string
 }
+@ApiBearerAuth("token")
 @UseGuards(new jwtAuthGuard())
 @ApiTags("Users")
 @Controller('users')
