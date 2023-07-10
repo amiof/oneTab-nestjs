@@ -7,6 +7,7 @@ import userModel from 'src/entities/user.entities';
 import { hashPassword } from 'src/utils/func';
 import * as jwt from "jsonwebtoken";
 
+
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(userModel) private userRepository: Repository<userModel>) { }
@@ -34,7 +35,7 @@ export class UsersService {
   }
 
   async findUserByUserName(userName: string) {
-    const user = await this.userRepository.findOne({ where: { userName },relations:["urls"] })
+    const user = await this.userRepository.findOne({ where: { userName }, relations: ["urls"] })
     if (user) return user
     return false
   }
@@ -52,8 +53,12 @@ export class UsersService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    console.log(id)
+    const user = await this.userRepository.findOne({ where: { id: id } ,relations:['urls']})
+    if(user) return user;
+    return 'user not exist'
+
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

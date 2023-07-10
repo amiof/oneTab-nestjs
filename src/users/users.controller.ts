@@ -4,7 +4,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { jwtAuthGuard } from 'src/auth/auth.guard';
-
+import { UUID } from 'crypto';
+type TEmail={
+email:string
+}
 @UseGuards(new jwtAuthGuard())
 @ApiTags("Users")
 @Controller('users')
@@ -30,14 +33,14 @@ export class UsersController {
 
   @ApiOperation({ summary: 'find user by email' })
   @Post("findByEmail")
-  async findUserByEmail(@Body() email: string) {
-    return await this.usersService.findUserByEmail(email);
+  async findUserByEmail(@Body() body:TEmail) {
+    return await this.usersService.findUserByEmail(body.email);
   }
 
   @ApiOperation({ summary: 'find user by id' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Post(':id')
+  async findOne(@Param('id',ParseUUIDPipe) id:string) {
+    return await this.usersService.findOne(id);
   }
 
 

@@ -3,7 +3,7 @@ import urlModel from "./urls.entities"
 @Entity("users")
 export default class userModel {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
   @Column({ unique: true, nullable: false })
   email: string;
   @Column({ unique: false, nullable: false })
