@@ -17,9 +17,9 @@ export class UrlsController {
   }
 
   @Post(":id")
-  getUrlByid(@Param("id") id: string) {
-    this.urlsService.getUrlByid()
-    return "url by id"
+  async getUrlByid(@Param("id") id: string) {
+    return await this.urlsService.getUrlByid(id)
+
   }
   @Post()
   async CreateUrl(@Body() createUserDto: CreateUrlDto) {
@@ -29,13 +29,11 @@ export class UrlsController {
   }
 
   @Delete(":id")
-  DeleteUrl(@Param("id") id: string) {
-    this.urlsService.deleteUrl()
-    return "deleted url"
+  async DeleteUrl(@Param("id") id: string) {
+    return await this.urlsService.deleteUrl(id)
   }
   @Patch()
-  UpdateUrl(@Body() body: UpdateUrlDto) {
-    this.urlsService.updateUrl()
-    return "updated url "
+  async UpdateUrl(@Body() body: UpdateUrlDto) {
+    return await this.urlsService.updateUrl(body)
   }
 }

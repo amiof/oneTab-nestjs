@@ -3,7 +3,7 @@ import { IsNotEmpty, IsOptional, IsString } from "class-validator"
 export class UpdateUrlDto {
   @IsNotEmpty()
   @IsString()
-  readonly userId: string
+  readonly userName: string
 
   @IsNotEmpty()
   @IsString()

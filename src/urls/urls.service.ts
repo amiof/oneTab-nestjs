@@ -4,6 +4,7 @@ import urlModel from 'src/entities/urls.entities';
 import { Repository } from 'typeorm';
 import { CreateUrlDto } from './dto/createUrl.dto';
 import { UsersService } from 'src/users/users.service';
+import { UpdateUrlDto } from './dto/updateUrl.dto';
 
 @Injectable()
 export class UrlsService {
@@ -12,7 +13,7 @@ export class UrlsService {
   ) { }
   async getAllurls(): Promise<urlModel[] | string> {
     const urls = await this.urlsRepository.find({
-      relations:["user"]
+      relations: ["user"]
     })
     if (urls.length) return urls
     return "not url found"
@@ -28,7 +29,29 @@ export class UrlsService {
     return "userName is not valid "
   }
 
-  getUrlByid() { }
-  deleteUrl() { }
-  updateUrl() { }
+  async getUrlByid(id: string) {
+
+    const url = await this.urlsRepository.findOne({ where: { id: id } })
+    return url
+  }
+
+
+  async deleteUrl(id: string) {
+    const deleted = await this.urlsRepository.delete({ id: id })
+    console.log(deleted)
+    return deleted
+  }
+
+  async updateUrl(body: UpdateUrlDto) {
+    const { urls, title, urlId,userName } = body
+    const user =await this.usersService.findUserByUserName(userName)
+    if (user && urls && title && urlId) {
+      const url = await this.getUrlByid(urlId)
+      url.title = title
+      url.url = urls
+      const updtedUrl = this.urlsRepository.save(url)
+      return updtedUrl
+    }
+
+  }
 }
