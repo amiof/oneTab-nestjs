@@ -5,9 +5,10 @@ import { PassportModule } from "@nestjs/passport"
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { UrlsModule } from './urls/urls.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
-  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule, UrlsModule],
+  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule, UrlsModule, TagModule],
 })
 export class AppModule implements NestModule{
 configure(consumer: MiddlewareConsumer) {

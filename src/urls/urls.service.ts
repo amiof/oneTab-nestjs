@@ -18,11 +18,11 @@ export class UrlsService {
     if (urls.length) return urls
     return "not url found"
   }
-  async CreateUrl(createUserDto: CreateUrlDto) {
-    const { userEmail } = createUserDto
+  async CreateUrl(createUrlDto: CreateUrlDto) {
+    const { userEmail } = createUrlDto
     const user = await this.usersService.findUserByEmail(userEmail)
     if (user) {
-      const url = await this.urlsRepository.create({ url: createUserDto.url, title: createUserDto.title, user })
+      const url = await this.urlsRepository.create({ url: createUrlDto.url, title: createUrlDto.title, user })
       await this.urlsRepository.save(url)
       return url
     }

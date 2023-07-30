@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import urlModel from "./urls.entities"
+import tagModle from "./tag.entities";
 @Entity("users")
 export default class userModel {
   @PrimaryGeneratedColumn("uuid")
@@ -20,4 +21,6 @@ export default class userModel {
   JwtToken: string
   @OneToMany(() => urlModel, (url) => url.user)
   urls: urlModel[]
+  @OneToMany(()=>tagModle,(tag)=>tag.user)
+  tags:tagModle[]
 }

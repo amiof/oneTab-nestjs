@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, BeforeInsert } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import userModel from "./user.entities";
+import tagModle from "./tag.entities";
 
 @Entity("url")
 export default class urlModel {
@@ -17,4 +18,6 @@ export default class urlModel {
   // }
   @ManyToOne(() => userModel, (user) => user.urls)
   user: userModel
+  @ManyToOne(()=>tagModle,(tag)=>tag.urls)
+  tag:tagModle
 }
