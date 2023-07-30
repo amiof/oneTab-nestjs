@@ -22,8 +22,8 @@ export class UrlsController {
 
   }
   @Post()
-  async CreateUrl(@Body() createUserDto: CreateUrlDto) {
-    const createdUrl = await this.urlsService.CreateUrl(createUserDto)
+  async CreateUrl(@Body() createUrlDto: CreateUrlDto) {
+    const createdUrl = await this.urlsService.CreateUrl(createUrlDto)
     if (createdUrl) return createdUrl
     return "url dont saved"
   }
