@@ -24,18 +24,18 @@ export class UsersService {
 
   async findAll() {
     return await this.userRepository.find({
-      relations: ["urls","tags"]
+      relations: ["urls","tags","fav"]
     });
   }
   async findUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email }, relations: ["urls","tags"] })
+    const user = await this.userRepository.findOne({ where: { email }, relations: ["urls","tags","fav"] })
     // console.log(user)
     if (user) return user
     return false
   }
 
   async findUserByUserName(userName: string) {
-    const user = await this.userRepository.findOne({ where: { userName }, relations: ["urls","tags"] })
+    const user = await this.userRepository.findOne({ where: { userName }, relations: ["urls","tags","fav"] })
     if (user) return user
     return false
   }
@@ -55,7 +55,7 @@ export class UsersService {
 
   async findOne(id: string) {
     console.log(id)
-    const user = await this.userRepository.findOne({ where: { id: id } ,relations:['urls',"tags"]})
+    const user = await this.userRepository.findOne({ where: { id: id } ,relations:['urls',"tags","fav"]})
     if(user) return user;
     return 'user not exist'
 

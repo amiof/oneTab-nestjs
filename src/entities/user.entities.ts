@@ -1,6 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import urlModel from "./urls.entities"
 import tagModle from "./tag.entities";
+import { favUlrsModle } from "./fav.entities";
 @Entity("users")
 export default class userModel {
   @PrimaryGeneratedColumn("uuid")
@@ -23,4 +24,7 @@ export default class userModel {
   urls: urlModel[]
   @OneToMany(()=>tagModle,(tag)=>tag.user)
   tags:tagModle[]
+  @OneToOne(()=>favUlrsModle)
+  @JoinColumn()
+  fav:favUlrsModle
 }

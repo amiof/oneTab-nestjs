@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import userModel from "./user.entities";
 import tagModle from "./tag.entities";
+import { favUlrsModle } from "./fav.entities";
 
 @Entity("url")
 export default class urlModel {
@@ -20,4 +21,6 @@ export default class urlModel {
   user: userModel
   @ManyToOne(()=>tagModle,(tag)=>tag.urls)
   tag:tagModle
+  @ManyToOne(()=>favUlrsModle,(favUrls)=>favUrls.urls)
+  fav:favUlrsModle
 }

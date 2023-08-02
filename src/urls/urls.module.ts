@@ -8,6 +8,8 @@ import { UsersModule } from 'src/users/users.module';
 @Module({
   imports:[TypeOrmModule.forFeature([urlModel]),UsersModule],
   providers: [UrlsService],
-  controllers: [UrlsController]
+  controllers: [UrlsController],
+  exports:[UrlsService]
+
 })
 export class UrlsModule {}

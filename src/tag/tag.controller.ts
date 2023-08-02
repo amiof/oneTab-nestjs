@@ -11,7 +11,6 @@ import { TagService } from './tag.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AddTagDto } from './dto/addTagDto.dto';
 import { FindTagDTo } from './dto/FindTag.DTo';
-//FIXME: find tagbyName not working fix it later
 @ApiTags('tags')
 @Controller('tag')
 export class TagController {
@@ -41,7 +40,7 @@ export class TagController {
   }
 
   @ApiOperation({ summary: 'delete user tag' })
-  @Delete(":id")
+  @Delete("RemoveTag/:id")
   removeTag(@Param() id:{id:string}) {
     return this.tagService.removeTag(id.id);
   }
