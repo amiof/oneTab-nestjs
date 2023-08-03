@@ -24,7 +24,7 @@ export default class userModel {
   urls: urlModel[]
   @OneToMany(()=>tagModle,(tag)=>tag.user)
   tags:tagModle[]
-  @OneToOne(()=>favUlrsModle)
+  @OneToOne(()=>favUlrsModle,{cascade:true})
   @JoinColumn()
   fav:favUlrsModle
 }

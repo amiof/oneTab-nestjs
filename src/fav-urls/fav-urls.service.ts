@@ -14,7 +14,7 @@ export class FavUrlsService {
     private favUrlRepository: Repository<favUlrsModle>,
     private urlsService: UrlsService,
     private userServicea: UsersService,
-  ) {}
+  ) { }
   async addToFav(addFav: AddFavDto) {
     const url = await this.urlsService.getUrlByid(addFav.urlId);
     const user = url.user;
@@ -48,8 +48,8 @@ export class FavUrlsService {
     return favs[0].urls;
   }
 
-  getAuserFavs(userUrlFavDto: UserUrlFavDto) {}
-async  getAllFav() {
+  getAuserFavs(userUrlFavDto: UserUrlFavDto) { }
+  async getAllFav() {
     const allFavs = await this.favUrlRepository.find()
     return allFavs
   }
@@ -61,5 +61,12 @@ async  getAllFav() {
     return fav;
   }
 
-  deleteUrlFromFav(id: string) {}
+  async deleteUrlFromFav(id: string) {
+    const deleteFav = await this.favUrlRepository.createQueryBuilder()
+      .relation(favUlrsModle, 'urls')
+      .of(id)
+      .delete()
+      .execute()
+
+  }
 }
