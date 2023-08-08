@@ -7,9 +7,10 @@ import { LoggerMiddleware } from './logger/logger.middleware';
 import { UrlsModule } from './urls/urls.module';
 import { TagModule } from './tag/tag.module';
 import { FavUrlsModule } from './fav-urls/fav-urls.module';
+import { HeadersModule } from './headers/headers.module';
 
 @Module({
-  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule, UrlsModule, TagModule, FavUrlsModule],
+  imports: [UsersModule, ...databasePorvider,PassportModule, AuthModule, UrlsModule, TagModule, FavUrlsModule, HeadersModule],
 })
 export class AppModule implements NestModule{
 configure(consumer: MiddlewareConsumer) {

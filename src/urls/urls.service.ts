@@ -13,7 +13,7 @@ export class UrlsService {
   ) { }
   async getAllurls(): Promise<urlModel[] | string> {
     const urls = await this.urlsRepository.find({
-      relations: ["user","fav"]
+      relations: ["user","fav","tag"]
     })
     if (urls.length) return urls
     return "not url found"
@@ -31,8 +31,12 @@ export class UrlsService {
 
   async getUrlByid(id: string) {
 
-    const url = await this.urlsRepository.findOne({ where: { id: id } ,relations:["user"]})
+    const url = await this.urlsRepository.findOne({ where: { id: id } ,relations:["user","tag"]})
     return url
+  }
+  async saveUrlData(urlModelData:urlModel){
+  const savedData= await this.urlsRepository.save(urlModelData) 
+    return savedData
   }
 
 

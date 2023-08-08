@@ -24,18 +24,18 @@ export class UsersService {
 
   async findAll() {
     return await this.userRepository.find({
-      relations: ["urls","tags","fav"]
+      relations: ["urls", "tags", "fav","headersUrls"]
     });
   }
   async findUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email }, relations: ["urls","tags","fav"] })
+    const user = await this.userRepository.findOne({ where: { email }, relations: ["urls", "tags", "fav","headersUrls"] })
     // console.log(user)
     if (user) return user
     return false
   }
 
   async findUserByUserName(userName: string) {
-    const user = await this.userRepository.findOne({ where: { userName }, relations: ["urls","tags","fav"] })
+    const user = await this.userRepository.findOne({ where: { userName }, relations: ["urls", "tags", "fav","headersUrls"] })
     if (user) return user
     return false
   }
@@ -55,8 +55,8 @@ export class UsersService {
 
   async findOne(id: string) {
     console.log(id)
-    const user = await this.userRepository.findOne({ where: { id: id } ,relations:['urls',"tags","fav"]})
-    if(user) return user;
+    const user = await this.userRepository.findOne({ where: { id: id }, relations: ['urls', "tags", "fav","headersUrls"] })
+    if (user) return user;
     return 'user not exist'
 
   }
@@ -68,5 +68,9 @@ export class UsersService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+  async saveProfile(fav: userModel) {
+    const user = await this.userRepository.save(fav)
+    return user
   }
 }

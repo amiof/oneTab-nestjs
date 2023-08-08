@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import userModel from "./user.entities";
 import tagModle from "./tag.entities";
 import { favUlrsModle } from "./fav.entities";
+import { headerModle } from "./header.entities";
 
 @Entity("url")
 export default class urlModel {
@@ -19,8 +20,10 @@ export default class urlModel {
   // }
   @ManyToOne(() => userModel, (user) => user.urls)
   user: userModel
-  @ManyToOne(()=>tagModle,(tag)=>tag.urls)
-  tag:tagModle
+  @ManyToMany(()=>tagModle,(tag)=>tag.urls)
+  tag:tagModle[]
   @ManyToOne(()=>favUlrsModle,(favUrls)=>favUrls.urls)
   fav:favUlrsModle
+  @ManyToMany(()=>headerModle,(header)=>header.urls)
+  header:headerModle[]
 }

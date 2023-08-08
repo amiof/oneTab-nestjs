@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import urlModel from "./urls.entities"
 import tagModle from "./tag.entities";
 import { favUlrsModle } from "./fav.entities";
+import { headerModle } from "./header.entities";
 @Entity("users")
 export default class userModel {
   @PrimaryGeneratedColumn("uuid")
@@ -27,4 +28,6 @@ export default class userModel {
   @OneToOne(()=>favUlrsModle,{cascade:true})
   @JoinColumn()
   fav:favUlrsModle
+  @OneToMany(()=>headerModle,(header)=>header.user)
+  headersUrls:headerModle[]
 }
