@@ -6,7 +6,9 @@ import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { FindTagDTo } from './dto/FindTag.DTo';
 import userModel from 'src/entities/user.entities';
-import { throws } from 'assert';
+import { TagToUrlDto } from './dto/tagToUrl.dto';
+import { UrlsService } from 'src/urls/urls.service';
+import urlModel from 'src/entities/urls.entities';
 
 @Injectable()
 export class TagService {
@@ -14,6 +16,7 @@ export class TagService {
     @InjectRepository(tagModle)
     private readonly TagRepository: Repository<tagModle>,
     private readonly userServic: UsersService,
+    private readonly urlsService: UrlsService,
   ) { }
 
   async addTag(addTagDto: AddTagDto) {
@@ -28,14 +31,25 @@ export class TagService {
       if (tag) return tag;
     }
   }
+  async addTagToUrl(tagToUrlDto: TagToUrlDto) {
+    const { tagId, urlId } = tagToUrlDto
+    const tag: tagModle = await this.TagRepository.findOne({ where: { id: tagId } })
+    const url: urlModel = await this.urlsService.getUrlByid(urlId)
+    if (tag && url) {
+      url.tag.push(tag)
+      const saved = this.urlsService.saveUrlData(url)
+      return saved
+    }
+
+  }
   async getUserTags(email: string) {
 
     const user: userModel | false = await this.userServic.findUserByEmail(
       email,
     )
-    if (user) {return user.tags}else{
+    if (user) { return user.tags } else {
 
-    throw new BadRequestException("user not Found");
+      throw new BadRequestException("user not Found");
     }
   }
 
@@ -59,8 +73,8 @@ export class TagService {
     const tags = await this.TagRepository.find({ relations: ['urls', 'user'] });
     return tags;
   }
- async removeTag(id:string) { 
-  const RemovedTag=await this.TagRepository.delete({id:id}) 
+  async removeTag(id: string) {
+    const RemovedTag = await this.TagRepository.delete({ id: id })
     return RemovedTag
   }
 }
