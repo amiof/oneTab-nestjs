@@ -88,7 +88,7 @@ export class FavUrlsService {
       );
       existFav[0].urls = filterData;
       const saveData = await this.favUrlRepository.save(existFav);
-      return saveData;
+      return {saveData, removed:url, removedStatus:true};
     } else {
       throw new BadRequestException('this user not available');
     }
